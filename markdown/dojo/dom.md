@@ -1,5 +1,4 @@
 # dom.byId(id, doc)
-## Summary
 Returns DOM node with matching `id` attribute or falsy value (ex: null or undefined) if not found.  If `id` is a DomNode, this function is a no-op.
 
 ## params
@@ -21,7 +20,6 @@ require(["dojo/dom"], function(dom){
 
 
 # dom.setSelectable(node,selectable)
-## Summary
 Enable or disable selection on a node
 
 ## params
