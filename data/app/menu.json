@@ -36,8 +36,13 @@
           },
           {
             "id": "121",
-            "name": "fx",
-            "link": "/dojo/fx"
+            "name": "dom-attr",
+            "link": "/dojo/dom-attr.md"
+          },
+          {
+            "id": "122",
+            "name": "dom-class",
+            "link": "/dojo/dom-class.md"
           }
         ]
       }
