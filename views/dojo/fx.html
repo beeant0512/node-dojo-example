@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fx</title>
+</head>
+<body>
+<h1 id="greeting">Hello</h1>
+<h1 id="greeting2">Hello</h1>
+<pre>
+     &lt;h1 id="greeting"&gt;Hello&lt;/h1&gt;
+</pre>
+<pre>
+    require(['dojo/dom', 'dojo/fx'], function (dom,fx) {<br/>
+    var greeting = dom.byId('greeting');<br/>
+    greeting.innerHTML += ' from Dojo!';<br/>
+
+    /* ...but now, with an animation! */<br/>
+    fx.slideTo({<br/>
+      node: greeting,<br/>
+      top: 100,<br/>
+      left: 200<br/>
+    }).play();<br/>
+
+    fx.fadeOut({<br/>
+      node: greeting,<br/>
+      duration: 600<br/>
+    }).play();<br/>
+  })
+</pre>
+</body>
+
+<!-- load dojo and provide config via dojoConfig -->
+<script>
+  require(['dojo/dom', 'dojo/fx'], function (dom, fx) {
+    var greeting = dom.byId('greeting');
+    var greeting2 = dom.byId('greeting2');
+    greeting.innerHTML += ' from Dojo!';
+      /* ...but now, with an animation! */
+    fx.slideTo({
+      node: greeting,
+      top: 100,
+      left: 200
+    }).play();
+
+    fx.chain([
+      fx.fadeIn({ node:greeting2 }),
+      /*fx.fadeOut({ node:greeting2 })*/
+    ]).play();
+  })
+</script>
+</html>

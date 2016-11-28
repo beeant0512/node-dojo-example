@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+
+    <link rel="stylesheet" href="/assets/dojo/themes/flat/flat.css" media="screen">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <style>
+        html,
+        body{
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        .headline {
+            height: 100%;
+            width: 100%;
+            min-height: 600px;
+        }
+    </style>
+</head>
+<body class="flat">
+<div id="pageContainer" class="headline"
+     data-dojo-type="dijit/layout/BorderContainer"
+     data-dojo-props="design: 'headline'">
+
+    <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region: 'center'" id="tabContainer"></div>
+    <div id="leftSide"
+         data-dojo-type="dijit/layout/ContentPane"
+         data-dojo-props="region: 'left'" style="width:200px;">
+    </div>
+    <div id="rightSide"
+         data-dojo-type="dijit/layout/ContentPane"
+         data-dojo-props="region: 'right'">right side
+    </div>
+    <div id="bottomFotter"
+         data-dojo-type="dijit/layout/ContentPane"
+         data-dojo-props="region: 'bottom'">bottom fotter
+    </div>
+</div>
+
+<!-- load dojo and provide config via dojoConfig -->
+<script src="/_static/js/dojoConfig.js"></script>
+<script src="/assets/dojo/dojo/dojo.js"></script>
+<script src="/_static/js/app.js"></script>
+<script>
+</script>
+</body>
+</html>

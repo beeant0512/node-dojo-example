@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dojo/dom.byId</title>
+</head>
+<body>
+<p id="foo">
+<h3 id="greeting">Hello</h3>
+<h3 id="bar">Selectable</h3>
+<h3 id="bar2">Can not selectable</h3>
+</p>
+
+<script>
+  require(["dojo/dom"], function (dom) {
+    var greeting = dom.byId("greeting");
+    console.log(greeting);
+    dom.setSelectable("bar", true);
+    dom.setSelectable("bar2", false);
+    if (dom.isDescendant("bar", "foo")) {
+      console.log('bar descendant foo')
+    }
+
+    if (dom.isDescendant("foo", "bar")) {
+      console.log('foo descendant bar')
+    }
+  });
+</script>
+</body>
+
+</html>

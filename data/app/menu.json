@@ -1,0 +1,96 @@
+[
+  {
+    "id": "1",
+    "name": "Dojo",
+    "link": "",
+    "class": "active",
+    "children": [
+      {
+        "id":"11",
+        "name":"Example",
+        "link":"",
+        "class":"",
+        "children":[
+          {
+            "id": "110",
+            "name": "dom",
+            "link": "/dojo/dom"
+          },
+          {
+            "id": "111",
+            "name": "fx",
+            "link": "/dojo/fx"
+          }
+        ]
+      },
+      {
+        "id":"12",
+        "name":"Document",
+        "link":"",
+        "class":"",
+        "children":[
+          {
+            "id": "120",
+            "name": "dom",
+            "link": "/dojo/dom.md"
+          },
+          {
+            "id": "121",
+            "name": "fx",
+            "link": "/dojo/fx"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Dijit",
+    "link": "",
+    "class": "active",
+    "children": [
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Dojox",
+    "link": "",
+    "class": "active",
+    "children": [
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Util",
+    "link": "",
+    "class": "active",
+    "children": [
+    ]
+  },
+  {
+    "id": "5",
+    "name": "dGrid",
+    "link": "",
+    "class": "",
+    "children": [
+      {
+        "id": "51",
+        "name": "dgrid",
+        "link": "/dgrid/dgrid"
+      }
+    ]
+  },
+  {
+    "id": "999",
+    "name": "Example",
+    "link": "",
+    "class": "",
+    "children": [
+      {
+        "id": "998",
+        "name": "flat",
+        "link": "/flat"
+      }
+    ]
+  }
+]
