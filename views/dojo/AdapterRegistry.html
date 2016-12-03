@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>dojo/AdapterRegistry</title>
+</head>
+<body>
+
+<script>
+  require(["dojo/AdapterRegistry"], function(reg){
+    debugger;
+    console.log(reg);
+    reg.register("handleString",
+      dojo.isString,
+      function(str){
+        console.log(str);
+      }
+    );
+    reg.register("handleArr",
+      dojo.isArray,
+      function(arr){
+        console.log(arr);
+      }
+    );
+    /*
+     now we can pass reg.match() *either* an array or a string and the value we pass will get handled by the right function
+      */
+    console.log(reg.match("someValue"));/* will call the first function */
+    console.log(reg.match(["someValue"]));/* will call the second */
+  });
+</script>
+</body>
+</html>

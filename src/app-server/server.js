@@ -24,13 +24,12 @@ define([
     appPort = process.env.PORT || config.port || 8002,
     env = process.env.NODE_ENV || 'development',
     __dirname = path.resolve(),
-    serveStaticAry = ['/_static', '/assets', '/src', 'lib'];
+    serveStaticAry = [['/_static', './_static'], ['/lib', './lib'], ['/src', './src'],['/nodelib','./node_modules']];
 
   function compile(str, path) {
     return stylus(str).set('filename', path).use(nib());
   }
 
-  console.log("server config:", config);
   // Configure the application
   app.set('view engine', 'html');
   app.engine('html', function (path, options, fn) {
@@ -53,7 +52,9 @@ define([
   }));
 
   for (var i = 0; i < serveStaticAry.length; i++) {
-    app.use(serveStaticAry[i], serveStatic('.' + serveStaticAry[i]));
+    console.log(serveStaticAry[i][0]);
+    console.log(serveStaticAry[i][1]);
+    app.use(serveStaticAry[i][0], serveStatic(serveStaticAry[i][1]));
   }
 
   app.get('/500', function (request, response, next) {
@@ -65,10 +66,7 @@ define([
    */
   // GET method route
   app.get('/*', function (request, response, next) {
-    if (request.params[0] == '404'
-      || /^_static/.test(request.params[0])
-      || /^assets/.test(request.params[0])
-      || /^src/.test(request.params[0])) {
+    if (request.params[0] == '404' || /^_static/.test(request.params[0]) || /^assets/.test(request.params[0]) || /^src/.test(request.params[0])) {
       next();
     } else {
       /**
@@ -83,21 +81,30 @@ define([
           pathname = pathname.substring(1);
         }
         pathname = pathname.replace(';onlybody=true', "");
+        var file = "";
         if (pathname.indexOf('.md') == pathname.length - 3) {
-          var file = path.join(__dirname, 'markdown', pathname);
           console.log("read md file:", file);
+          file = path.join(__dirname, 'markdown', pathname);
+          createNoneExistFile(file);
           fs.readFile(file, 'utf8', function (err, data) {
-            if (err) throw err;
-            marked.setOptions({
-              highlight: function (code) {
-                return highlightjs.highlight(code).value;
-              }
-            });
-            var fileContent = marked(data);
+            var fileContent = "file not exist";
+            if (err) {
+              console.log("read error:" + err);
+            } else {
+              marked.setOptions({
+                highlight: function (code) {
+                  return highlightjs.highlight(code).value;
+                }
+              });
+              fileContent = marked(data);
+            }
+
             response.send(fileContent);
             response.end();
           });
         } else {
+          file = path.join(__dirname, 'views', pathname);
+          createNoneExistFile(file);
           response.render(pathname, request.query);
         }
       }
@@ -152,8 +159,8 @@ define([
             // body = Buffer.concat(body);
             // res.write(body);
 
-            res.contentType('json');//返回的数据类型
-            res.send(body.toString());//给客户端返回一个json格式的数据
+            res.contentType('json'); //返回的数据类型
+            res.send(body.toString()); //给客户端返回一个json格式的数据
             res.end();
           });
         }).on('error', function (e) {
@@ -195,4 +202,18 @@ define([
   // Start Listening
   app.listen(appPort);
   console.log('HTTP server started on port: '.grey + appPort.toString().cyan);
+
+  function createNoneExistFile(file) {
+    fs.stat(file, function (err, stats) {
+      if (err) {
+        console.log(err);
+        // create a file if the file not exist
+        if (err.code === 'ENOENT') {
+          fs.writeFile(file, '// todo', function (err, data) {
+            if (err) console.log(err);
+          });
+        }
+      }
+    });
+  }
 });

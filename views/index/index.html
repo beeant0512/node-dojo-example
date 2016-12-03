@@ -16,7 +16,7 @@
   ], function (dom, domConstruct, fx) {
     var greetingNode = dom.byId('greeting');
     domConstruct.place('<em> ${data}!</em>', greetingNode);
-    /* 注释不能使用 // 否则会导致juicer引擎出错 */
+      /* 注释不能使用 // 否则会导致juicer引擎出错 */
     fx.slideTo({
       node: greeting,
       top: 100,

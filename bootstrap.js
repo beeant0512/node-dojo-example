@@ -3,7 +3,7 @@ var loadModule = "app-server/server";
 
 // Configuration Object for Dojo Loader:
 dojoConfig = {
-  baseUrl: "assets/dojo", // Where we will put our packages
+  baseUrl: "./", // Where we will put our packages
   async: 1, // We want to make sure we are using the "modern" loader
   hasCache: {
     "host-node": 1, // Ensure we "force" the loader into Node.js mode
@@ -16,19 +16,19 @@ dojoConfig = {
   packages: [
     {
       name: "dojo",
-      location: "dojo"
+      location: "node_modules/dojo"
     },
     {
       name: "app",
-      location: "../../src/app"
+      location: "src/app"
     },
     {
       name: "app-server",
-      location: "../../src/app-server"
+      location: "src/app-server"
     }
   ],
   deps: [loadModule] // And array of modules to load on "boot"
 };
 
 // Now load the Dojo loader
-require("./assets/dojo/dojo/dojo.js");
+require("./node_modules/dojo/dojo.js");

@@ -44,7 +44,7 @@ require([
               // set up the model, assigning menuStore, and assigning method to identify leaf nodes of tree
               var menuModel = new ObjectStoreModel({
                 store: menuStore,
-                query:{id: item.id},
+                query: {id: item.id},
                 mayHaveChildren: function (item) {
                   return "children" in item;
                 }
@@ -52,10 +52,10 @@ require([
               // set up the tree, assigning menuModel;
               var sideMenuId = 'leftSideMenu' + item.id;
               var menuTree = registry.byId(sideMenuId);
-              domConstruct.create('div',{"id":sideMenuId},"leftSide");
+              domConstruct.create('div', {"id": sideMenuId}, "leftSide");
               query('#leftSide .dijitTree').addClass('hidden')
               if (menuTree) {
-                domClass.remove(dom.byId(sideMenuId),'hidden');
+                domClass.remove(dom.byId(sideMenuId), 'hidden');
               } else {
                 menuTree = new Tree({
                   model: menuModel,
