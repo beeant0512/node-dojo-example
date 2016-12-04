@@ -7,8 +7,8 @@
 <body>
 
 <script>
-  require(["dojo/AdapterRegistry"], function(reg){
-    debugger;
+  require(["dojo/AdapterRegistry"], function(AdapterRegistry){
+    var reg = new AdapterRegistry();
     console.log(reg);
     reg.register("handleString",
       dojo.isString,
