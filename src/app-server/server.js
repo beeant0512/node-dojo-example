@@ -22,9 +22,9 @@ define([
   /* Express Application */
   var app = express(),
     appPort = process.env.PORT || config.port || 8002,
-    env = process.env.NODE_ENV || 'development',
+    env = process.env.NODE_ENV || 'local',
     __dirname = path.resolve(),
-    serveStaticAry = [['/_static', './_static'], ['/lib', './lib'], ['/src', './src'],['/nodelib','./node_modules']];
+    serveStaticAry = [['/_static', './_static'], ['/lib', './lib'], ['/src', './src'], ['/nodelib', './node_modules']];
 
   function compile(str, path) {
     return stylus(str).set('filename', path).use(nib());
@@ -83,8 +83,8 @@ define([
         pathname = pathname.replace(';onlybody=true', "");
         var file = "";
         if (pathname.indexOf('.md') == pathname.length - 3) {
-          console.log("read md file:", file);
           file = path.join(__dirname, 'markdown', pathname);
+          console.log("read md file:", file);
           createNoneExistFile(file);
           fs.readFile(file, 'utf8', function (err, data) {
             var fileContent = "file not exist";
@@ -204,16 +204,47 @@ define([
   console.log('HTTP server started on port: '.grey + appPort.toString().cyan);
 
   function createNoneExistFile(file) {
-    fs.stat(file, function (err, stats) {
+    // check folder is exist
+    var slashPos = file.lastIndexOf('\\');
+    if (slashPos == -1) {
+      slashPos = file.lastIndexOf("/");
+    }
+    var fileFolder = file.substring(0, slashPos);
+    fs.stat(fileFolder, function (err, stats) {
       if (err) {
-        console.log(err);
-        // create a file if the file not exist
         if (err.code === 'ENOENT') {
-          fs.writeFile(file, '// todo', function (err, data) {
-            if (err) console.log(err);
-          });
+          console.log("create a folder: " + fileFolder);
+          mkdirsSync(fileFolder);
         }
       }
     });
+
+    fs.stat(file, function (err, stats) {
+      if (err && err.code === 'ENOENT') {
+        // create a file if the file not exist
+        console.log("create a file: " + file);
+        fs.writeFileSync(file, '// todo');
+      }
+    });
+  }
+
+  function mkdirsSync(dirpath, mode) {
+    if (!fs.existsSync(dirpath)) {
+      var pathtmp;
+      dirpath.split(path.sep).forEach(function (dirname) {
+        if (pathtmp) {
+          pathtmp = path.join(pathtmp, dirname);
+        }
+        else {
+          pathtmp = dirname;
+        }
+        if (!fs.existsSync(pathtmp)) {
+          if (!fs.mkdirSync(pathtmp, mode)) {
+            return false;
+          }
+        }
+      });
+    }
+    return true;
   }
 });
