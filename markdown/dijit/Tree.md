@@ -14,15 +14,14 @@ Interface to read tree data, get notifications of changes to tree data, and for 
 * query: null, [deprecated] anything  
 Deprecated.  User should specify query to the model directly instead. Specifies datastore query to return the root item or top items for the tree.  
 
-* label: "", [deprecated] String  
-Deprecated.  Use `dijit/tree/ForestStoreModel` directly instead. 
+* label: "", [deprecated] String Deprecated.  
+Use `dijit/tree/ForestStoreModel` directly instead. 
 Used in conjunction with query parameter. If a query is specified (rather than a root node id), and a label is also specified, then a fake root node is created and displayed, with this label.
 
 * showRoot: true, [const] Boolean  
 Should the root node be displayed, or hidden?  
 
-* childrenAttr: ["children"], [deprecated] String[]  
-Deprecated. 
+* childrenAttr: ["children"], [deprecated] String[] Deprecated.  
 This information should be specified in the model. One ore more attributes that holds children of a tree node  
 
 * paths: [], String[][] or Item[][]  
@@ -57,7 +56,7 @@ Class to use as as the dnd controller.  Specifying this class enables DnD. Gener
 
 * dndParams:  
 parameters to pull off of the tree and pass on to the dndController as its params, declare the below items so they can be pulled from the tree's markup
-> ["onDndDrop", "itemCreator", "onDndCancel", "checkAcceptance", "checkItemAcceptance", "dragThreshold", "betweenThreshold"]  
+  > ["onDndDrop", "itemCreator", "onDndCancel", "checkAcceptance", "checkItemAcceptance", "dragThreshold", "betweenThreshold"]  
 
 
 * onDndDrop: null, [protected] Function  

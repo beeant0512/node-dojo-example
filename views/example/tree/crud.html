@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>example tree crud</title>
+</head>
+<body>
+<div id="tree"></div>
+<div id="treeAction">
+    <button class="add">Add</button>
+    <button class="edit">Edit</button>
+    <button class="remove">Remove</button>
+</div>
+
+<script>
+  require([
+    "dojo/store/Memory",
+    "dojo/store/Observable",
+    "dijit/tree/ObjectStoreModel",
+    "dijit/Tree",
+    "dojo/on",
+    "dojo/query"
+  ], function (Memory, Observable, ObjectStoreModel, Tree, on, query) {
+    var memory = new Memory({
+      data: [
+        {
+          "id": "example",
+          "name": "Example",
+          "link": "",
+          "class": "",
+          "parent": "0"
+        },
+        {
+          "id": "flat",
+          "name": "flat",
+          "link": "",
+          "class": "",
+          "parent": "example"
+        },
+        {
+          "id": "tree",
+          "name": "tree",
+          "link": "",
+          "class": "",
+          "parent": "example"
+        },
+        {
+          "id": "crud",
+          "name": "crud",
+          "link": "",
+          "class": "",
+          "parent": "tree"
+        }
+      ],
+      getChildren: function (object) {
+        return this.query({parent: object.id});
+      }
+    });
+    memory = new Observable(memory);
+
+    var model = new ObjectStoreModel({
+      store: memory,
+      query: {id: 'example'}
+    });
+
+    var tree = new Tree({
+      model: model
+    });
+    tree.placeAt("tree");
+    tree.startup();
+    var map = [];
+    on(query('.add'), "click", function () {
+      var id = Math.random().toString();
+      memory.add({
+        "id": "add" + id,
+        "name": id,
+        "link": "",
+        "class": "",
+        "parent": "tree"
+      });
+      map.push("add" + id);
+    });
+    on(query('.remove'), "click", function () {
+      memory.remove(map[0]);
+      map.shift();
+    });
+  });
+</script>
+</body>
+</html>

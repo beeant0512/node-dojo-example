@@ -207,7 +207,7 @@ define([
     // check folder is exist
     var slashPos = file.lastIndexOf('\\');
     if (slashPos == -1) {
-      slashPos = file.lastIndexOf("/");
+      slashPos = file.lastIndexOf(path.sep);
     }
     var fileFolder = file.substring(0, slashPos);
     fs.stat(fileFolder, function (err, stats) {
@@ -229,16 +229,18 @@ define([
   }
 
   function mkdirsSync(dirpath, mode) {
+    if (mode == undefined) {
+      mode = 0777;
+    }
     if (!fs.existsSync(dirpath)) {
-      var pathtmp;
+      var pathtmp = path.sep;
       dirpath.split(path.sep).forEach(function (dirname) {
         if (pathtmp) {
           pathtmp = path.join(pathtmp, dirname);
-        }
-        else {
+        } else {
           pathtmp = dirname;
         }
-        if (!fs.existsSync(pathtmp)) {
+        if (pathtmp !== '' && !fs.existsSync(pathtmp)) {
           if (!fs.mkdirSync(pathtmp, mode)) {
             return false;
           }
