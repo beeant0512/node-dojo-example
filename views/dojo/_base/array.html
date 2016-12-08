@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>example dojo/_base/array</title>
+</head>
+<body>
+see console
+<script>
+    require(['dojo/_base/array'],function(array){
+      var ary = [
+        {id:1,name:1,parent:1},
+        {id:2,name:2,parent:2},
+        {id:3,name:3,parent:2}
+      ];
+
+      var filterAry = array.filter(ary,function(item){
+        return item.parent == 2;
+      });
+
+      console.log(filterAry);
+    })
+</script>
+</body>
+</html>
