@@ -9,14 +9,16 @@
 </head>
 <body>
 <div id="tree"></div>
+<div id="tree1"></div>
 <script>
   require([
     "dojo/store/Memory",
     "dijit/tree/ObjectStoreModel", "dijit/Tree",
     "dojo/domReady!"
-  ], function (Memory, ObjectStoreModel, Tree) {
+  ], function (Memory, ObjectStoreModel, Tree)
+  {
 
-      /* Create test store, adding the getChildren() method required by ObjectStoreModel */
+    /* Create test store, adding the getChildren() method required by ObjectStoreModel */
     var myStore = new Memory({
       data: [
         {id: 'world', name: 'The earth', type: 'planet', population: '6 billion'},
@@ -49,17 +51,76 @@
       }
     });
 
-      /* Create the model */
+    /* Create the model */
     var myModel = new ObjectStoreModel({
       store: myStore,
       query: {id: 'world'}
+    });
+
+    /* Create the Tree. */
+    var tree = new Tree({
+      model: myModel
+    });
+    tree.placeAt("tree");
+    tree.startup();
+
+  });
+
+  require([
+    "dojo/store/Memory",
+    "dijit/tree/ObjectStoreModel", "dijit/Tree",
+    "dojo/domReady!"
+  ], function (Memory, ObjectStoreModel, Tree)
+  {
+
+      /* Create test store, adding the getChildren() method required by ObjectStoreModel */
+    var myStore = new Memory({
+      data: [
+        {id1: 'world', name: 'The earth', type: 'planet', population: '6 billion'},
+        {
+          id1: 'AF', name: 'Africa', type: 'continent', population: '900 million', area: '30,221,532 sq km',
+          timezone: '-1 UTC to +4 UTC', parent: 'world'
+        },
+        {id1: 'EG', name: 'Egypt', type: 'country', parent: 'AF'},
+        {id1: 'KE', name: 'Kenya', type: 'country', parent: 'AF'},
+        {id1: 'Nairobi', name: 'Nairobi', type: 'city', parent: 'KE'},
+        {id1: 'Mombasa', name: 'Mombasa', type: 'city', parent: 'KE'},
+        {id1: 'SD', name: 'Sudan', type: 'country', parent: 'AF'},
+        {id1: 'Khartoum', name: 'Khartoum', type: 'city', parent: 'SD'},
+        {id1: 'AS', name: 'Asia', type: 'continent', parent: 'world'},
+        {id1: 'CN', name: 'China', type: 'country', parent: 'AS'},
+        {id1: 'IN', name: 'India', type: 'country', parent: 'AS'},
+        {id1: 'RU', name: 'Russia', type: 'country', parent: 'AS'},
+        {id1: 'MN', name: 'Mongolia', type: 'country', parent: 'AS'},
+        {id1: 'OC', name: 'Oceania', type: 'continent', population: '21 million', parent: 'world'},
+        {id1: 'EU', name: 'Europe', type: 'continent', parent: 'world'},
+        {id1: 'DE', name: 'Germany', type: 'country', parent: 'EU'},
+        {id1: 'FR', name: 'France', type: 'country', parent: 'EU'},
+        {id1: 'ES', name: 'Spain', type: 'country', parent: 'EU'},
+        {id1: 'IT', name: 'Italy', type: 'country', parent: 'EU'},
+        {id1: 'NA', name: 'North America', type: 'continent', parent: 'world'},
+        {id1: 'SA', name: 'South America', type: 'continent', parent: 'world'}
+      ],
+      getChildren: function (object) {
+        return this.query({parent: object.id1});
+      },
+      idProperty:'id1'
+    });
+
+      /* Create the model */
+    var myModel = new ObjectStoreModel({
+      store: myStore,
+      query: {id1: 'world'},
+      getIdentity:function(){
+
+      }
     });
 
       /* Create the Tree. */
     var tree = new Tree({
       model: myModel
     });
-    tree.placeAt("tree");
+    tree.placeAt("tree1");
     tree.startup();
 
   });
