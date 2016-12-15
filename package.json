@@ -2,10 +2,10 @@
   "name": "node-dojo-admin",
   "version": "1.0.0",
   "description": "nodejs dojo framework admin template",
-  "main": "server.js",
+  "main": "bootstrap.js",
   "scripts": {
     "test": "test",
-    "start": "node server.js"
+    "start": "node bootstrap.js"
   },
   "keywords": [
     "nodejs",

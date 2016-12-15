@@ -57,6 +57,18 @@
         "link": "/flat.html"
       },
       {
+        "id": "example-dgrid",
+        "name": "dgrid",
+        "link": "",
+        "children": [
+          {
+            "id": "example-dgrid-tree",
+            "name": "Tree",
+            "link": "/dgrid/tree.html"
+          }
+        ]
+      },
+      {
         "id": "example-tree",
         "name": "Tree",
         "link": "",

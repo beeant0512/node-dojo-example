@@ -235,7 +235,7 @@ define([
     if (!fs.existsSync(dirpath)) {
       var pathtmp = path.sep;
       dirpath.split(path.sep).forEach(function (dirname) {
-        if (pathtmp) {
+        if (pathtmp && dirname.substring(0,1) == path.sep) {
           pathtmp = path.join(pathtmp, dirname);
         } else {
           pathtmp = dirname;
