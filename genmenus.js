@@ -1,8 +1,9 @@
 var fs = require('fs');
 var path = require('path');
-var examplePath = "/Users/xiaobiao/Documents/github/node-dojo-example/views";
-var markdownPath = "/Users/xiaobiao/Documents/github/node-dojo-example/markdown";
-var menuPath = "/Users/xiaobiao/Documents/github/node-dojo-example/data/app";
+var __dirname = path.resolve();
+var examplePath = __dirname + "/views";
+var markdownPath = __dirname + "/markdown";
+var menuPath = __dirname + "/data/app";
 var Menu = function (id, name, link) {
   this.id = id;
   this.name = name;
