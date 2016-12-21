@@ -5,6 +5,7 @@
   "main": "bootstrap.js",
   "scripts": {
     "test": "test",
+    "re generate menu":" node genmenus.js",
     "start": "node bootstrap.js"
   },
   "keywords": [
