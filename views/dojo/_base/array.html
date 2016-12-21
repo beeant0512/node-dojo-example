@@ -22,41 +22,41 @@ see console
     var filterAry = array.filter(ary, function (item) {
       return item.parent == 2;
     });
-    console.log("filter:", filterAry);
+    console.log("array.filter: ", filterAry);
 
     var someAry = array.some(ary, function (item) {
       if (item.id >= 2) {
         return false;
       }
     });
-    console.log("some:", someAry);
+    console.log("array.some:", someAry);
 
     var aryIndexOf = ['name1', 'name2', 'name3', 'name4', 'name5', 'name2', 'name5', 'name2'];
     var posotion = array.indexOf(aryIndexOf, "name2");
-    console.log("indexOf: " + posotion);
+    console.log("array.indexOf: " + posotion);
 
     posotion = array.indexOf(aryIndexOf, "name2", 3);
-    console.log("indexOf: " + posotion);
+    console.log("array.indexOf: " + posotion);
 
-    /* equals to lastIndexOf */
+      /* equals to lastIndexOf */
     posotion = array.indexOf(aryIndexOf, "name2", 3, true);
-    console.log("indexOf: " + posotion);
+    console.log("array.indexOf: " + posotion);
 
     posotion = array.lastIndexOf(aryIndexOf, "name2");
-    console.log("lastIndexOf: " + posotion);
+    console.log("array.lastIndexOf: " + posotion);
 
     posotion = array.lastIndexOf(aryIndexOf, "name2", 6);
-    console.log("lastIndexOf: " + posotion);
+    console.log("array.lastIndexOf: " + posotion);
 
     array.forEach(ary, function (item, i) {
-      console.log(item);
+      console.log("array.forEach: index " + i, item);
     });
 
     var arrValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     var doubleValue = array.map(arrValues, function (item) {
       return item * 2;
     });
-    console.log("map: ", doubleValue);
+    console.log("array.map: ", doubleValue);
 
     var arrIndexEvery = [
       {month: "january", income: 2000},
@@ -71,7 +71,7 @@ see console
     } else {
       result = "no, not all income >= 3000";
     }
-    console.log("every: " ,result);
+    console.log("array.every: ", result);
 
   })
 </script>
