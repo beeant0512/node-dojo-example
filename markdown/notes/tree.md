@@ -5,10 +5,10 @@
 
 ```js
  var store = new Memory({
-                  data: [
-                    {id1: 'world', name1: 'The earth'}
-                    ]
-                });
+      data: [
+        {id1: 'world', name1: 'The earth'}
+        ]
+    });
 
  var model = new ObjectStoreModel({
       store: store,
