@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>dojo/aspect.js</title>
+</head>
+<body>
+<script>
+  require([
+    "dojo/aspect",
+    "dojo/request"
+  ], function (aspect, request) {
+    aspect.before(dojo, "xhr", function (method, args) {
+      console.log("before xhr");
+        /* this is called before any dojo.xhr call */
+      if (method == "PUT") {
+          /* if the method is PUT, change it to a POST and put the method in the parameter string */
+        args.url += "?x-method=PUT";
+          /* return the new args */
+        return ["POST", args];
+      }
+    });
+    aspect.around(dojo, "xhr", function (originalXhr) {
+      console.log("around xhr");
+      return function (method, args) {
+          /* doing something before the original call */
+        var deferred = originalXhr(method, args);
+          /* doing something after the original call */
+        return deferred;
+      }
+    });
+    aspect.after(dojo, "xhr", function (deferred) {
+      console.log("after xhr");
+      return deferred.then(function (response) {
+        return dojo.fromJson(response);
+      });
+    });
+
+    request('./dojo/dojo.html;onlybody=true', {}).then(function (data) {
+      console.log("response");
+    })
+  })
+</script>
+</body>
+</html>

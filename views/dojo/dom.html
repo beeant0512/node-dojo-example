@@ -5,11 +5,11 @@
     <title>dojo/dom.byId</title>
 </head>
 <body>
-<p id="foo">
+<div id="foo">
 <h3 id="greeting">Hello</h3>
 <h3 id="bar">Selectable</h3>
 <h3 id="bar2">Can not selectable</h3>
-</p>
+</div>
 
 <script>
   require(["dojo/dom"], function (dom) {
@@ -21,8 +21,8 @@
       console.log('bar descendant foo')
     }
 
-    if (dom.isDescendant("foo", "bar")) {
-      console.log('foo descendant bar')
+    if (!dom.isDescendant("foo", "bar")) {
+      console.log('foo not descendant bar')
     }
   });
 </script>

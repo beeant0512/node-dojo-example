@@ -37,7 +37,6 @@ require([
               var menuStore = new Memory({
                 data: [item],
                 getChildren: function (object) {
-                  console.log(object);
                   return object.children || [];
                 }
               });
