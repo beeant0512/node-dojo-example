@@ -1,0 +1,41 @@
+{
+  "name": "dojo-example",
+  "version": "1.0.0",
+  "description": "dojo examples",
+  "main": "bootstrap.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set DEBUG=app & hotnode ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beeant0512/node-dojo-example.git"
+  },
+  "keywords": [
+    "dojo"
+  ],
+  "author": "huangxb0512@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beeant0512/node-dojo-example/issues"
+  },
+  "homepage": "https://github.com/beeant0512/node-dojo-example#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.2",
+    "debug": "^2.6.0",
+    "dijit": "^1.12.1",
+    "dojo": "^1.12.1",
+    "dojo-themes": "^1.12.1",
+    "dojo-util": "^1.12.1",
+    "dojox": "^1.12.1",
+    "express": "^4.14.0",
+    "express-session": "^1.15.0",
+    "jade": "^1.11.0",
+    "morgan": "^1.7.0",
+    "node-uuid": "^1.4.7",
+    "serve-favicon": "^2.3.2"
+  }
+}

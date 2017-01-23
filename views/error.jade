@@ -1,0 +1,7 @@
+extends dojo
+block append title
+  title= error.status
+block content
+  h1= message
+  h2= error.status
+  pre #{error.stack}
