@@ -5,16 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('cookie-session');
-var index = require('./routes/index');
-var users = require('./routes/users');
+var fs = require('fs');
+var path = require('path');
 var uuid = require('node-uuid');
 
 var app = express();
 
 // trust first proxy
 app.set('trust proxy', 1)
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,13 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'sUyC2IAOnzPpfjHRjSDpUUgQvmANfW9i3dOeNtqChnj6iMG5BzK1n3vjZkrW' }));
-
-/* 静态资源文件 托管静态文件 */
-app.use('/assets', express.static('node_modules'));
-app.use('/js', express.static('public/javascripts'));
-app.use('/css', express.static('public/stylesheets'));
-app.use('/img', express.static('public/images'));
-app.use('/jslib', express.static('public/jslib'));
 
 /* 登录拦截器 */
 app.use(function(req, res, next) {
@@ -66,9 +57,21 @@ app.use(function(req, res, next) {
   }
 });
 
+var __dirname = path.resolve();
+var configFile = path.join(__dirname, 'config.js');
+console.log('read config from: %s', configFile);
+var config = fs.readFileSync(configFile, 'utf8');
+config = eval("[" + config + "]")[0];
+
+/* 静态资源文件 托管静态文件 */
+for (var idx in config.statik) {
+  app.use(config.statik[idx].prefix, express.static(config.statik[idx].path));
+}
+
 // 路由配置
-app.use('/', index);
-app.use('/user', users);
+for (var idx in config.routes) {
+  app.use(config.routes[idx].prefix, require(config.routes[idx].path));
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

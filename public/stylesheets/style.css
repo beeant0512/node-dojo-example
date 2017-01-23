@@ -1,8 +1,15 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "宋体", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+li ul.nav-pills >li {
+  padding-left: 10px;
+}
+
+.nav-pills a > i {
+  float: right;
 }

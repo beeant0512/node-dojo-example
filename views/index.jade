@@ -1,5 +1,8 @@
-extends layout
+extends dojo
 
 block content
   h1= title
   p Welcome to #{title}
+  div(id='nav')
+block append scripts
+  script(src='/js/index.js')
