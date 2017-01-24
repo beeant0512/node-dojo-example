@@ -33,8 +33,7 @@
     "dojo-util": "^1.12.1",
     "dojox": "^1.12.1",
     "express": "^4.14.0",
-    "express-session": "^1.15.0",
-    "jade": "^1.11.0",
+    "express-dot-engine": "^1.0.7",
     "morgan": "^1.7.0",
     "node-uuid": "^1.4.7",
     "serve-favicon": "^2.3.2"
