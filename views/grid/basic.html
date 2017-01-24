@@ -1,0 +1,41 @@
+---
+layout: ../dojo.html
+title: Basic Grid
+---
+[[##css:
+<link rel="stylesheet" href="/assets/dgrid/css/dgrid.css">
+#]]
+[[##body:
+<h1>[[= model.title ]]</h1>
+<div id="example">
+    <h2>Columns</h2>
+    <div>
+        <div>As an array of objects with explicit field and label properties</div>
+        <div id="grid1"></div>
+    </div>
+
+   <div>
+       <div>As a hash map, where the key is used as the "field" and the value is an object containing a "label" property</div>
+       <div id="grid2"></div>
+   </div>
+
+    <div>
+        <div>As a hash map, where the key is used as the "field" and the value is used as the "label"</div>
+        <div id="grid3"></div>
+    </div>
+
+    <h2>Expanding functionality with mixins and extensions</h2>
+    <div>
+        <div id="grid4"></div>
+    </div>
+
+    <h2>Handling Events</h2>
+    <div>
+        <div id="grid5"></div>
+    </div>
+</div>
+#]]
+
+[[##script:
+<script src="/js/grid/basic.js"></script>
+#]]

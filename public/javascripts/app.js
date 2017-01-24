@@ -8,5 +8,6 @@ var dojoConfig = {
     { name: 'jslib', location: '/jslib' },
     { name: 'btdojo', location: '/btdojo' },
     { name: 'dstore', location: '/assets/dojo-dstore' },
+    { name: 'dgrid', location: '/assets/dgrid' }
   ]
 };

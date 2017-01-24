@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var FileStreamRotator = require('file-stream-rotator')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('cookie-session');
@@ -25,11 +26,30 @@ app.set('view cache', false);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+
+// logger
+var logDirectory = __dirname + '/log';
+// ensure log directory exists
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+// create a rotating write stream
+var accessLogStream = FileStreamRotator.getStream({
+  date_format: 'YYYYMMDD',
+  filename: logDirectory + '/access-%DATE%.log',
+  frequency: 'daily',
+  verbose: false
+});
+// setup the logger
+app.use(logger(':method :url :response-time', {
+  stream: accessLogStream,
+  skip: function (req, res) {
+    return res.statusCode < 400
+  }
+}));
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(session({ secret: 'sUyC2IAOnzPpfjHRjSDpUUgQvmANfW9i3dOeNtqChnj6iMG5BzK1n3vjZkrW' }));
+app.use(session({secret: 'sUyC2IAOnzPpfjHRjSDpUUgQvmANfW9i3dOeNtqChnj6iMG5BzK1n3vjZkrW'}));
 
 var __dirname = path.resolve();
 var configFile = path.join(__dirname, 'config.json');
@@ -48,7 +68,7 @@ for (var idx in config.routes) {
 }
 
 /* 登录拦截器 */
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var isLogin = req.session.user;
   // 解析用户请求的路径
   var arr = req.url.split('/');
@@ -79,10 +99,10 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   err.status = 500;
   var message = '500';
-  if(-1!==err.message.indexOf('lookup view')){
+  if (-1 !== err.message.indexOf('lookup view')) {
     err.status = 404;
     message = 'Page Not Found';
   }
