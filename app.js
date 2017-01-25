@@ -31,22 +31,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({secret: 'sUyC2IAOnzPpfjHRjSDpUUgQvmANfW9i3dOeNtqChnj6iMG5BzK1n3vjZkrW'}));
 
-console.log('read config from: %s', './config.json');
 var config = require("./config.json");
 /* 静态资源文件 托管静态文件 */
 for (var idx in config.statik) {
   app.use(config.statik[idx].prefix, express.static(config.statik[idx].path));
 }
 
-// 路由配置
-for (var idx in config.routes) {
-  app.use(config.routes[idx].prefix, require(config.routes[idx].path));
-}
-
 /* 登录拦截器 */
 app.use(function (req, res, next) {
   var isLogin = req.session.user;
-  console.log('url: %s', req.url);
   // 解析用户请求的路径
   var arr = req.url.split('/');
   // 去除 GET 请求路径上携带的参数
@@ -60,14 +53,12 @@ app.use(function (req, res, next) {
     }
     next();
   } else {
-    console.log('arr', arr);
     // 判断请求路径是否为根、登录、注册、登出，如果是不做拦截
     if (arr.length > 1 && arr[1] === '') {
       // next();
       console.log("redirect('/user/login')");
       res.redirect('/user/login'); // 将用户重定向到登录页面
     } else if (arr.length > 2 && arr[1] === 'user' && (arr[2] === 'register' || arr[2] === 'login' || arr[2] === 'logout')) {
-      console.log("next()");
       next();
     } else { // 登录拦截
       req.session.originalUrl = req.originalUrl ? req.originalUrl : null; // 记录用户原始请求路径
@@ -77,6 +68,12 @@ app.use(function (req, res, next) {
     }
   }
 });
+
+// 路由配置
+for (var idx in config.routes) {
+  app.use(config.routes[idx].prefix, require(config.routes[idx].path));
+}
+
 
 // error handler
 app.use(function (err, req, res, next) {

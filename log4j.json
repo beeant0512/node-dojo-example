@@ -15,6 +15,7 @@
       "type": "datefile",
       "filename": "logs/error",
       "pattern": "-yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
       "backups": 10,
       "category": "server"
     },
@@ -22,6 +23,7 @@
       "type": "datefile",
       "filename": "logs/sql",
       "pattern": "-yyyy-MM-dd.log",
+      "alwaysIncludePattern": true,
       "backups": 10,
       "category": "sql"
     }
