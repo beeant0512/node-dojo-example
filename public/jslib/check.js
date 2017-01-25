@@ -9,7 +9,7 @@ define([
   "dojo/NodeList-dom",
   "dojo/dom-construct",
   "dojo/dom-class"
-], function(declare, validate, check, web, arrayUtil, query, request, NodeListDom, domConstruct, domClass) {
+], function (declare, validate, check, web, arrayUtil, query, request, NodeListDom, domConstruct, domClass) {
   function getParent(field) {
     var parent = field.parentElement;
     var isInputGroup = domClass.contains(parent, 'input-group');
@@ -23,11 +23,12 @@ define([
     var parent = getParent(field);
     var helpBlock = query('.help-block', parent);
     domClass.add(parent, 'has-error');
+    var message = field.name + " 不能为空.";
     if (0 === helpBlock.length) {
-      domConstruct.place("<small class='help-block'>" + field.name + "不能为空</small>", parent);
+      domConstruct.place("<small class='help-block'>" + message + "</small>", parent);
     } else {
       domClass.remove(helpBlock[0], 'hidden');
-      helpBlock[0].innerHTML = field.name + " 不能为空.";
+      helpBlock[0].innerHTML = message;
     }
   }
 
@@ -45,43 +46,55 @@ define([
       domConstruct.place("<small class='help-block'>" + message + "</small>", parent);
     } else {
       domClass.remove(helpBlock[0], 'hidden');
-      helpBlock[0].innerHTML = field.name + " is required.";
+      helpBlock[0].innerHTML = message;
     }
   }
 
-  validate.listen = function(form, profile) {
+  function setFieldInvalidMsg(field, message){
+    var parent = getParent(field);
+    var helpBlock = query('.help-block', parent);
+    domClass.add(parent, 'has-error');
+    if (0 === helpBlock.length) {
+      domConstruct.place("<small class='help-block'>" + message + "</small>", parent);
+    } else {
+      domClass.remove(helpBlock[0], 'hidden');
+      helpBlock[0].innerHTML = message;
+    }
+  }
+
+  validate.listen = function (form, profile) {
 
     var self = this;
-    arrayUtil.forEach(form, function(item) {
+    arrayUtil.forEach(form, function (item) {
       var handle = null;
-      dojo.connect(item, 'onblur', function(evt) {
+      dojo.connect(item, 'onblur', function (evt) {
         if (handle) {
           clearTimeout(handle);
         }
-        handle = setTimeout(function() {
+        handle = setTimeout(function () {
           self.checkField(evt.target, form, profile);
         }, 500);
       });
-      dojo.connect(item, 'oninput', function(evt) {
+      dojo.connect(item, 'oninput', function (evt) {
         if (handle) {
           clearTimeout(handle);
         }
-        handle = setTimeout(function() {
+        handle = setTimeout(function () {
           self.checkField(evt.target, form, profile);
         }, 500);
       });
-      dojo.connect(item, 'onpropertychange', function(evt) {
+      dojo.connect(item, 'onpropertychange', function (evt) {
         if (handle) {
           clearTimeout(handle);
         }
-        handle = setTimeout(function() {
+        handle = setTimeout(function () {
           self.checkField(evt.target, form, profile);
         }, 500);
       });
     })
   };
 
-  validate.checkField = function(field, form, profile) {
+  validate.checkField = function (field, form, profile) {
     var results = this.check(form, profile);
     var parent = getParent(field);
     query(".help-block", parent.parentElement).addClass("hidden");
@@ -115,30 +128,30 @@ define([
     return result;
   };
 
-  validate.checkForm = function(form, profile) {
+  validate.checkForm = function (form, profile) {
     var results = validate.check(form, profile);
     query(".help-block", form).addClass("hidden");
     query(".has-error", form).removeClass("has-error has-success").addClass('has-success');
-    console.log(results);
+
     if (results.isSuccessful()) {
       return true;
     }
     if (results.hasMissing()) {
       var missings = results.getMissing();
-      arrayUtil.forEach(missings, function(item) {
+      arrayUtil.forEach(missings, function (item) {
         setMissingMsg(form[item]);
       });
     }
     if (results.hasInvalid()) {
       var invalids = results.getInvalid();
-      arrayUtil.forEach(invalids, function(item) {
+      arrayUtil.forEach(invalids, function (item) {
         setInvalidMsg(form[item], profile);
       });
     }
     return false;
   };
 
-  validate.unique = function(value, flags) {
+  validate.unique = function (value, flags) {
     if ("" === value) {
       return true;
     }
@@ -152,9 +165,9 @@ define([
       data: flags.data,
       handleAs: 'json',
       sync: true
-    }).then(function(result) {
+    }).then(function (result) {
       validateRst = result.success;
-    }, function(error) {
+    }, function (error) {
       console.error(error);
     });
 
@@ -164,7 +177,7 @@ define([
   return declare(null, {
     form: null,
     profile: null,
-    constructor: function(form, profile) {
+    constructor: function (form, profile) {
       this.profile = profile;
       if (dojo.isString(form)) {
         form = dojo.byId(form);
@@ -172,11 +185,18 @@ define([
       this.form = form;
       validate.listen(this.form, this.profile);
     },
-    validate: function() {
+    validate: function () {
       return validate.checkForm(this.form, this.profile);
     },
-    validateField: function(fieldName) {
+    validateField: function (fieldName) {
       return validate.checkField(fieldName, this.form, this.profile);
+    },
+    updateStatus: function (fieldName, status, msg) {
+      if ("invalid" === status) {
+        setFieldInvalidMsg(this.form[fieldName], msg);
+      } else {
+
+      }
     }
   });
 });

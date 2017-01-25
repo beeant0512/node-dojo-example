@@ -5,7 +5,7 @@
   "main": "bootstrap.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set DEBUG=app & hotnode ./bin/www"
+    "start": "set DEBUG=express.* & hotnode ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
+    "crypto-js": "^3.1.9-1",
     "debug": "^2.6.0",
     "dgrid": "^1.1.0",
     "dijit": "^1.12.1",
