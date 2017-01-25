@@ -35,8 +35,8 @@
     "dojox": "^1.12.1",
     "express": "^4.14.0",
     "express-dot-engine": "^1.0.7",
-    "file-stream-rotator": "0.0.7",
-    "morgan": "^1.7.0",
+    "log4js": "^1.1.0",
+    "mysql2": "^1.1.2",
     "node-uuid": "^1.4.7",
     "serve-favicon": "^2.3.2"
   }

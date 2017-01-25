@@ -1,0 +1,29 @@
+{
+  "appenders": [
+    {
+      "type": "console"
+    },
+    {
+      "type": "datefile",
+      "filename": "logs/access",
+      "pattern": "-yyyy-MM-dd.log",
+      "backups": 10,
+      "alwaysIncludePattern": true,
+      "category": "normal"
+    },
+    {
+      "type": "datefile",
+      "filename": "logs/error",
+      "pattern": "-yyyy-MM-dd.log",
+      "backups": 10,
+      "category": "server"
+    },
+    {
+      "type": "datefile",
+      "filename": "logs/sql",
+      "pattern": "-yyyy-MM-dd.log",
+      "backups": 10,
+      "category": "sql"
+    }
+  ]
+}

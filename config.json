@@ -9,7 +9,7 @@
     { "prefix": "/btdojo", "path": "public/btdojo" }
   ],
   "routes": [
-    { "prefix": "/", "path": "./routes/index" },
+    { "prefix": "/index", "path": "./routes/index" },
     { "prefix": "/user", "path": "./routes/users" },
     { "prefix": "/grid", "path": "./routes/grid" }
   ]

@@ -1,4 +1,6 @@
 var express = require('express');
+var mysql = require('../mysql').mysql;
+var logger = require('../logger');
 var router = express.Router();
 
 /* GET users listing. */
@@ -13,10 +15,12 @@ router.get('/login', function(req, res, next) {
 router.post('/login', function(req, res, next) {
   // 获取post参数
   var data = req.body;
-  console.log(req.session);
+  mysql.execute('select * from user where account = ?', [data.username], function (err, rows, fields) {
+    console.log(err, rows, fields);
+  });
   req.session.user = data;
 
-  res.redirect('/');
+  res.redirect('/index');
 });
 
 router.get('/logout', function(req, res) {
